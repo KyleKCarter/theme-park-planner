@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
-import Header from './components/header';
+
+import Layout from './components/layout'
 
 function App() {
   return (
+    <Layout>
     <div>
-      <Header />
+      <h1>Schedule Day</h1>
     </div>
+    </Layout>
   );
 }
 
