@@ -1,16 +1,17 @@
 import React from 'react';
-import "./../styles/header.scss"
+import "./styles/header.scss"
+import { Link } from 'react-router-dom'
 
 function Header() {
     return (
         <div>
             <header className='header'>
-                <h1>Theme Park Guide</h1>
-                <ul className='navBar'>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Parks</li>
-                    <li>LogIn/SignUp</li>
+                <Link to='/'><h1>Theme Park Guide</h1></Link>
+                <ul className='navBar' activeStyle='active-nav-item'>
+                    <Link to='/'><li>Home</li></Link>
+                    <Link to='/about'><li>About</li></Link>
+                    <Link to='/schedule'><li>Schedule</li></Link>
+                    <Link to='/authentication'><li>LogIn/SignUp</li></Link>
                 </ul>
             </header>
         </div>
