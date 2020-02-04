@@ -1,7 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
+import {useSelector} from 'react-redux';
 
-const Schedule = () => {
+const Schedule = (props) => {
+    // const result: any = useSelector(selector: Function, equalityFn?: Function)
+
     const [park, setPark] = useState('')
     const [month, setMonth] = useState('')
     const [day, setDay] = useState(0)
@@ -9,10 +12,21 @@ const Schedule = () => {
     console.log(park)
     console.log(month)
     console.log(day)
+
+    //need to create function to save the day (redux)
+    
+    let next = () => {
+        props.history.push('/schedule2')
+    }
+
     return (
         <div>
             <h1>Schedule Page</h1>
             <p>Will only set a Schedule from 9a.m. - 7p.m.</p>
+            <br/>
+            <br/>
+            <br/>
+            <p>Park:</p>
             <select name='park' onChange={(e) => setPark(e.target.value)}>
                 <option value="--">--</option>
                 <option value="Universal Studios">Universal Studios</option>
@@ -22,8 +36,11 @@ const Schedule = () => {
                 <option value="Disney's Epcot">Disney's Epcot</option>
                 <option value="Disney's Animal Kingdom">Disney's Animal Kingdom</option>
             </select>
-            <input type="month" name='month' onChange={(e) => setMonth(e.target.value)} />
+            <br/>
+            <br/>
+            <br/>
             <span>
+                <p>Day:</p>
                 <select name="day" onChange={(e) => setDay(e.target.value)}>
                     <option value="00">--</option>
                     <option value="01">1</option>
@@ -59,6 +76,15 @@ const Schedule = () => {
                     <option value="31">31</option>
                 </select>
             </span>
+            <br/>
+            <br/>
+            <br/>
+            <p>Month & Year:</p>
+            <input type="month" name='month' onChange={(e) => setMonth(e.target.value)} />
+            <br/>
+            <br/>
+            <br/>
+            <button onClick={next}>Next</button>
         </div>
     )
 }

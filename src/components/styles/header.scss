@@ -39,6 +39,7 @@ $fontFamily: "Lato", sans-serif;
 .navBar a:hover {
   cursor: pointer;
   color: $hoverColor;
+  text-decoration: underline;
 }
 
 .active-nav-item {
