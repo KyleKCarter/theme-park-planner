@@ -13,12 +13,13 @@ const {
 } = process.env
 
 //controllers
+const IOA = require('./controllers/Universal_Studios/Orlando/IslandsOfAdventureController')
+const US = require('./controllers/Universal_Studios/Orlando/UniversalStudiosController')
 
 //massive
 massive(CONNECTION_STRING)
-    .then(db => {
-        app.set('db', db);
-        dbInstance = db;
+    .then(database => {
+        app.set('database', database);
         console.log("Database Connected")
     })
     .catch(error => console.log(error));
@@ -36,5 +37,9 @@ app.use(
 )
 
 app.use(express.json())
+
+//endpoints
+app.get('/api/IOAJanuaryTimesModerate', IOA.getJanTimes_Moderate)
+app.get('/api/USJanuaryTimesModerate', US.getJanTimes_Moderate)
 
 app.listen(SERVER_PORT, () => console.log(`Running on ${SERVER_PORT}`))

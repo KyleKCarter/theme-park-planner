@@ -1,0 +1,1 @@
+SELECT * FROM islands_of_adventure_moderate

@@ -7,7 +7,7 @@ function Header() {
         <div>
             <header className='header'>
                 <Link to='/'><h1>Theme Park Guide</h1></Link>
-                <ul className='navBar' activeStyle='active-nav-item'>
+                <ul className='navBar'>
                     <Link to='/'><li>Home</li></Link>
                     <Link to='/about'><li>About</li></Link>
                     <Link to='/schedule'><li>Schedule</li></Link>
