@@ -6,9 +6,9 @@ const About = () => {
     //Declaring a new state variable, which is called "times"
     const [januaryTimes, setTimes] = useState([]);
 
-    let getJanuaryTimes = () => {
+    let getModerateTimes = () => {
         axios
-            .get('/api/IOAJanuaryTimesModerate')
+            .get('/IOATimesModerate')
             .then(res => {
                 setTimes(res.data)
             })
@@ -29,7 +29,7 @@ const About = () => {
     return (
         <div>
             <h1>About Page</h1>
-            <button onClick={getJanuaryTimes}>January Times</button>
+            <button onClick={getModerateTimes}>Moderate Times</button>
             {mappedJanuary}
         </div>
     )

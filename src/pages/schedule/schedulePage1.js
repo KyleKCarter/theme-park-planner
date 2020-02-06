@@ -1,22 +1,24 @@
 import React from 'react';
-import { useState } from 'react';
-import {useSelector} from 'react-redux';
+// import { useState } from 'react';
+import {useSelector, connect} from 'react-redux';
+import {updateState} from './../../redux/reducers/UserInputReducer/userInputReducer'
 
 const Schedule = (props) => {
     // const result: any = useSelector(selector: Function, equalityFn?: Function)
 
-    const [park, setPark] = useState('')
-    const [month, setMonth] = useState('')
-    const [day, setDay] = useState(0)
-
-    console.log(park)
-    console.log(month)
-    console.log(day)
-
-    //need to create function to save the day (redux)
+    // const [park, setPark] = useState('')
+    // const [day, setDay] = useState(0)
+    // const [month, setMonth] = useState('')
+    const park = useSelector(state => state.userInputReducer.park)
+    const day = useSelector(state => state.userInputReducer.day)
+    const month = useSelector(state => state.userInputReducer.month)
     
     let next = () => {
         props.history.push('/schedule2')
+    }
+
+    let handleChange = (e) => {
+        props.updateState({ [e.target.name]: e.target.value })
     }
 
     return (
@@ -27,7 +29,7 @@ const Schedule = (props) => {
             <br/>
             <br/>
             <p>Park:</p>
-            <select name='park' onChange={(e) => setPark(e.target.value)}>
+            <select name='park' value={park} onChange={handleChange}>
                 <option value="--">--</option>
                 <option value="Universal Studios">Universal Studios</option>
                 <option value="Islands of Adventure">Islands of Adventure</option>
@@ -41,7 +43,7 @@ const Schedule = (props) => {
             <br/>
             <span>
                 <p>Day:</p>
-                <select name="day" onChange={(e) => setDay(e.target.value)}>
+                <select name="day" value={day} onChange={handleChange}>
                     <option value="00">--</option>
                     <option value="01">1</option>
                     <option value="02">2</option>
@@ -80,7 +82,7 @@ const Schedule = (props) => {
             <br/>
             <br/>
             <p>Month & Year:</p>
-            <input type="month" name='month' onChange={(e) => setMonth(e.target.value)} />
+            <input type="month" value={month} name='month' onChange={handleChange} />
             <br/>
             <br/>
             <br/>
@@ -89,4 +91,15 @@ const Schedule = (props) => {
     )
 }
 
-export default Schedule;
+const mapStateToProps = state => {
+    const {park, day, month} = state.userInputReducer
+    return {
+        park: park,
+        day: day,
+        month: month,
+    }
+}
+
+export default connect(mapStateToProps, {
+    updateState
+})(Schedule);

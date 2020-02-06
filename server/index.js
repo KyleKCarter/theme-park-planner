@@ -13,8 +13,12 @@ const {
 } = process.env
 
 //controllers
-const IOA = require('./controllers/Universal_Studios/Orlando/IslandsOfAdventureController')
-const US = require('./controllers/Universal_Studios/Orlando/UniversalStudiosController')
+const IOA = require('./controllers/Universal_Studios/Orlando/IslandsOfAdventureController');
+const US = require('./controllers/Universal_Studios/Orlando/UniversalStudiosController');
+const AK = require('./controllers/Disney_World/AnimalKingdomController');
+const EC = require('./controllers/Disney_World/EpcotController');
+const HS = require('./controllers/Disney_World/HollywoodStudiosController');
+const MK = require('./controllers/Disney_World/MagicKingdomController');
 
 //massive
 massive(CONNECTION_STRING)
@@ -39,7 +43,11 @@ app.use(
 app.use(express.json())
 
 //endpoints
-app.get('/api/IOAJanuaryTimesModerate', IOA.getJanTimes_Moderate)
-app.get('/api/USJanuaryTimesModerate', US.getJanTimes_Moderate)
+app.get('/IOATimesModerate', IOA.moderate_times)
+app.get('/USTimesModerate', US.moderate_times)
+app.get('/AKTimesModerate', AK.moderate_times)
+app.get('/ECTimesModerate', EC.moderate_times)
+app.get('/HSTimesModerate', HS.moderate_times)
+app.get('/MKTimesModerate', MK.moderate_times)
 
 app.listen(SERVER_PORT, () => console.log(`Running on ${SERVER_PORT}`))

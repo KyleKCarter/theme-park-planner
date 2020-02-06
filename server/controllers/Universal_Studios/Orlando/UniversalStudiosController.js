@@ -1,6 +1,6 @@
-let getJanTimes_Moderate = (req, res) => {
+const moderate_times = (req, res) => {
     const db = req.app.get('database');
-    db.Universal_Studios.january_times_moderate().then(times => {
+    db.Universal_Studios.moderate_times().then(times => {
         res.status(200).json(times)
     }).catch(error => {
         console.log(error)
@@ -9,5 +9,5 @@ let getJanTimes_Moderate = (req, res) => {
 }
 
 module.exports = {
-    getJanTimes_Moderate
+    moderate_times
 }

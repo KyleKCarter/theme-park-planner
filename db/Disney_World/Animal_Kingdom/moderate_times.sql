@@ -1,0 +1,1 @@
+SELECT * FROM disneys_animal_kingdom_moderate;

@@ -1,0 +1,1 @@
+SELECT * FROM disneys_magic_kingdom_moderate;
