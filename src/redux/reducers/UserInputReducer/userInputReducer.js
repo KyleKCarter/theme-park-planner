@@ -4,7 +4,8 @@ const initialState = {
     month: '',
     rideType: '',
     expressPass: false,
-    parkHopperPass: false
+    parkHopperPass: false,
+    selectedRides: []
 }
 
 const UPDATE_STATE = 'UPDATE_STATE';
