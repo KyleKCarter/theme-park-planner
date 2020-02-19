@@ -19,6 +19,7 @@ const AK = require('./controllers/Disney_World/AnimalKingdomController');
 const EC = require('./controllers/Disney_World/EpcotController');
 const HS = require('./controllers/Disney_World/HollywoodStudiosController');
 const MK = require('./controllers/Disney_World/MagicKingdomController');
+const schedule = require('./controllers/Schedule_Controller/scheduleController');
 
 //massive
 massive(CONNECTION_STRING)
@@ -42,12 +43,32 @@ app.use(
 
 app.use(express.json())
 
-//endpoints
-app.get('/IOATimesModerate', IOA.moderate_times)
-app.get('/USTimesModerate', US.moderate_times)
-app.get('/AKTimesModerate', AK.moderate_times)
-app.get('/ECTimesModerate', EC.moderate_times)
-app.get('/HSTimesModerate', HS.moderate_times)
-app.get('/MKTimesModerate', MK.moderate_times)
+//ENDPOINTS
+//crowd levels
+app.get('/crowd_levels/:month', schedule.crowd_level)
+
+//NOT_CROWDED TIMES
+
+//MODERATE TIMES
+//times
+app.get('/IOATimesmoderate', IOA.moderate_times)
+app.get('/USTimesmoderate', US.moderate_times)
+app.get('/AKTimesmoderate', AK.moderate_times)
+app.get('/ECTimesmoderate', EC.moderate_times)
+app.get('/HSTimesmoderate', HS.moderate_times)
+app.get('/MKTimesmoderate', MK.moderate_times)
+//ride_types
+app.get('/selected_ride_type_MK_moderate/search', schedule.selected_ride_types_MK)
+app.get('/selected_ride_type_HS_moderate/search', schedule.selected_ride_types_HS)
+app.get('/selected_ride_type_EC_moderate/search', schedule.selected_ride_types_EC)
+app.get('/selected_ride_type_AK_moderate/search', schedule.selected_ride_types_AK)
+app.get('/selected_ride_type_US_moderate/search', schedule.selected_ride_types_US)
+app.get('/selected_ride_type_IOA_moderate/search', schedule.selected_ride_types_IOA)
+//asc ride_times
+app.get('/USTimes_nine_am', US.moderate_ride_times_asc_nine_am)
+
+//BUSY TIMES
+
+//VERY_BUSY TIMES
 
 app.listen(SERVER_PORT, () => console.log(`Running on ${SERVER_PORT}`))

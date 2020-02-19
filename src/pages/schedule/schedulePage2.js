@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, connect } from 'react-redux';
 import './styles/schedulePage2.scss'
 import axios from 'axios';
-import { updateState } from './../../redux/reducers/UserInputReducer/userInputReducer';
+import {Link} from 'react-router-dom'
+import { updateState, updateCrowdLevel, updateSelectedRides } from './../../redux/reducers/UserInputReducer/userInputReducer';
 
 const Schedule_Page_2 = (props) => {
     const [rides, setRides] = useState([])
@@ -11,21 +12,27 @@ const Schedule_Page_2 = (props) => {
     const expressPass = useSelector(state => state.userInputReducer.expressPass)
     const parkHopperPass = useSelector(state => state.userInputReducer.parkHopperPass)
     const selectedRides = useSelector(state => state.userInputReducer.selectedRides)
+    const crowdLevel = useSelector(state => state.userInputReducer.crowdLevel)
+    const rideTypes = useSelector(state => state.userInputReducer.rideTypes)
 
     //similar to componentDidMount and componentDidUpdate
     useEffect(() => {
         //update the rides on load
         axios
-            .get(`/${park}TimesModerate`)
+            .get(`/${park}Times${crowdLevel}`)
             .then(res => {
                 setRides(res.data)
             })
             .catch(error => console.log(error))
-    }, [park])
-
+    }, [park, crowdLevel])
 
     let handleChange = (e) => {
         props.updateState({ [e.target.name]: e.target.value })
+    }
+
+
+    let selectRideType = (e) => {
+        props.updateState({ rideTypes: [...rideTypes, e.target.value]})
     }
 
 
@@ -34,12 +41,12 @@ const Schedule_Page_2 = (props) => {
     }
 
 
-    let back = () => {
-        props.history.goBack()
+    let removeRide = (index) => {
+        props.updateSelectedRides(index)
     }
 
 
-    let submit = () => {
+    let next = () => {
         props.history.push('/schedule3')
     }
 
@@ -50,7 +57,7 @@ const Schedule_Page_2 = (props) => {
             <div key={index} className='ride_card'>
                 <img src={ride_img} alt="ride_image" />
                 <h1>{ride}</h1>
-                <h2>{ride_type}</h2>
+                <h2>Type: {ride_type}</h2>
                 <button onClick={() => selectRide(ride)}>Select</button>
             </div>
         )
@@ -61,6 +68,7 @@ const Schedule_Page_2 = (props) => {
             <div key={index} className='listOfSelectedRides'>
                 <ul>
                     <li>{val}</li>
+                    <button onClick={() => removeRide(index)}>X</button>
                 </ul>
             </div>
         )
@@ -70,24 +78,39 @@ const Schedule_Page_2 = (props) => {
     return (
         <div className='schedulePage2'>
             <h2>Step 2</h2>
-            <button onClick={back}>Back</button>
+            <Link to='/schedule'><button>Back</button></Link>
             <section className='expressPass'>
-                <p>Express/Fast Pass Available?</p>
+                <h5>Express/Fast Pass Available?</h5>
                 <select name="expressPass" value={expressPass} onChange={handleChange}>
                     <option value="false">False</option>
                     <option value="true">True</option>
                 </select>
             </section>
             <section className='parkHopperPass'>
-                <p>Park Hopper Pass?</p>
+                <h5>Park Hopper Pass?</h5>
                 <select name="parkHopperPass" value={parkHopperPass} onChange={handleChange}>
                     <option value="false">False</option>
                     <option value="true">True</option>
                 </select>
             </section>
-            <h3>Select the rides in which you would like to ride.</h3>
+            <section className='rideTypes'>
+                <h5>Select Types of Rides. (optional)</h5>
+                <div>
+                    <input type="checkbox" name='rideTypes' value='Thriller' onChange={selectRideType}/><p>Thriller</p>
+                </div>
+                <div>
+                    <input type="checkbox" name='rideTypes' value='4D & 3D' onChange={selectRideType} /><p>4D & 3D</p>
+                </div>
+                <div>
+                    <input type="checkbox" name='rideTypes' value='Kids' onChange={selectRideType} /><p>Kids</p>
+                </div>
+                <div>
+                    <input type="checkbox" name="rideTypes" value='Water' onChange={selectRideType} /><p>Water</p>
+                </div>
+            </section>
+            <h5>Select the rides in which you would like to ride.</h5>
             <div className='selectedRides'>
-                <p>Selected rides:</p>
+                <h6>Selected rides:</h6>
                 <div>
                     {mappedSelectedRides}
                 </div>
@@ -95,24 +118,26 @@ const Schedule_Page_2 = (props) => {
             <section className='rides_section'>
                 {mappedRides}
             </section>
-            <button onClick={submit}>Get Schedule</button>
+            <button onClick={next}>Next</button>
         </div>
     )
 }
 
-
-let mapStateToProps = state => {
-    const { rideType, expressPass, parkHopperPass, park, selectedRides } = state.userInputReducer
+const mapStateToProps = state => {
+    const { park, expressPass, parkHopperPass, selectedRides, crowdLevel, rideTypes } = state.userInputReducer
     return {
-        rideType: rideType,
+        park: park,
         expressPass: expressPass,
         parkHopperPass: parkHopperPass,
-        park: park,
-        selectedRides: selectedRides
+        selectedRides: selectedRides,
+        crowdLevel: crowdLevel,
+        rideTypes: rideTypes
     }
 }
 
 
 export default connect(mapStateToProps, {
-    updateState
+    updateState,
+    updateCrowdLevel,
+    updateSelectedRides
 })(Schedule_Page_2);

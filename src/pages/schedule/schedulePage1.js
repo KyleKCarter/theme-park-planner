@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/schedulePage1.scss'
 // import { useState } from 'react';
 import { useSelector, connect } from 'react-redux';
-import { updateState } from './../../redux/reducers/UserInputReducer/userInputReducer'
+import { updateState, updateCrowdLevel } from './../../redux/reducers/UserInputReducer/userInputReducer'
 
 const Schedule = (props) => {
     const park = useSelector(state => state.userInputReducer.park)
@@ -10,6 +10,7 @@ const Schedule = (props) => {
     const month = useSelector(state => state.userInputReducer.month)
 
     let next = () => {
+        props.updateCrowdLevel(month)
         props.history.push('/schedule2')
     }
 
@@ -72,8 +73,22 @@ const Schedule = (props) => {
                     </select>
                 </span>
                 <section className='selectMonth'>
-                    <p>Month & Year:</p>
-                    <input type="month" value={month} name='month' onChange={handleChange} />
+                    <p>Month:</p>
+                    <select name="month" value={month} onChange={handleChange}>
+                        <option value="--">--</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
                 </section>
             </main>
             <button onClick={next}>Next</button>
@@ -91,5 +106,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-    updateState
+    updateState,
+    updateCrowdLevel
 })(Schedule);

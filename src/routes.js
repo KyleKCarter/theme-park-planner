@@ -10,6 +10,7 @@ import Login_Signup from './pages/login-signup';
 import Schedule_Page_1 from './pages/schedule/schedulePage1';
 import Schedule_Page_2 from './pages/schedule/schedulePage2';
 import Schedule_Page_3 from './pages/schedule/schedulePage3';
+import Schedule from './pages/schedule/finishedSchedule'
 
 export default (
     <Switch>
@@ -19,5 +20,6 @@ export default (
         <Route component={Schedule_Page_1} path='/schedule' />
         <Route component={Schedule_Page_2} path='/schedule2' />
         <Route component={Schedule_Page_3} path='/schedule3' />
+        <Route component={Schedule} path='/your-schedule' />
     </Switch>
 )
