@@ -1,5 +1,5 @@
 import React from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 
 //pages
 import Home from './pages/home'
@@ -13,7 +13,7 @@ import Schedule_Page_3 from './pages/schedule/schedulePage3';
 import Schedule from './pages/schedule/finishedSchedule'
 
 export default (
-    <Switch>
+    <Routes>
         <Route component={Home} exact path='/' />
         <Route component={About} path='/about' />
         <Route component={Login_Signup} path='/authentication' />
@@ -21,5 +21,5 @@ export default (
         <Route component={Schedule_Page_2} path='/schedule2' />
         <Route component={Schedule_Page_3} path='/schedule3' />
         <Route component={Schedule} path='/your-schedule' />
-    </Switch>
+    </Routes>
 )
