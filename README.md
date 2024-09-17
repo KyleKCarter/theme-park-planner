@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Theme Park Guide is an app that improves your theme park experience by creating a personalized itinerary, helping you navigate attractions, dining, and entertainment to make the most of your day.
 
 ## Available Scripts
 
